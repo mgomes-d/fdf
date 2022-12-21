@@ -6,7 +6,7 @@
 /*   By: mgomes-d <mgomes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 15:53:48 by mgomes-d          #+#    #+#             */
-/*   Updated: 2022/12/20 13:42:18 by mgomes-d         ###   ########.fr       */
+/*   Updated: 2022/12/21 14:13:49 by mgomes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@
 # include "../utils/libft/libft.h"
 # include <math.h>
 # include <fcntl.h>
-# include <stdio.h> //f
 # define MAX(A, B) (A > B ? A : B)
 
 
@@ -69,37 +68,14 @@ typedef struct	s_data
 	t_img		img;
 }	t_data;
 
-
-
-typedef struct	s_rect
-{
-	int	x;
-	int	y;
-	int	width;
-	int	height;
-	int	color;
-}	t_rect;
-
-typedef struct	s_bresen
-{
-	int	x;
-	int y;
-	int	xincr;
-	int	yincr;
-	int	i;
-}	t_bresen;
-
-typedef struct	s_map
-{
-	int **matrix;
-	int lines;
-	int *row;
-}	t_map;
-
 void	ft_bresenham_algo(t_matrix a, t_matrix b, t_img *img, t_data *data);
 void	img_pix_put(t_img *img, int x, int y, int color);
 t_matrix	**ft_matrix(int fd, t_data *data);
 void	ft_mlxdraw(t_data *data, t_img *img);
 void	ft_setparam(t_matrix *a, t_matrix *b, t_data *def);
+int	ft_keyimg(int key);
+void	ft_action(int keysym, t_data *data);
+int	handle_keypress(int keysym, t_data *data);
+int	windown_quit(t_data *data);
 
 #endif
