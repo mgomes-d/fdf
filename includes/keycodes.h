@@ -6,20 +6,17 @@
 /*   By: mgomes-d <mgomes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 10:34:35 by mgomes-d          #+#    #+#             */
-/*   Updated: 2022/12/21 14:00:25 by mgomes-d         ###   ########.fr       */
+/*   Updated: 2022/12/22 11:11:39 by mgomes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef KEYCODES_H
 # define KEYCODES_H
 
-# define XK_Escape		0xff1b
-# define KeyPressMask	(1L<<0)
-# define KeyPress		2
+# define XK_ESCAPE  	0xff1b
+# define KEYPRESS		2
 # define ESC             53
-# define DestroyNotify   17
-# define ClientMessage   33
-# define LeaveWindowMask (1L<<5)
+# define DESTROYNOTIFY  17
 # define Z_PLUS 92
 # define Z_MINUS 85
 # define ZOOM 69

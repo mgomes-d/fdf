@@ -6,7 +6,7 @@
 /*   By: mgomes-d <mgomes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 15:13:53 by mgomes-d          #+#    #+#             */
-/*   Updated: 2022/12/06 12:40:28 by mgomes-d         ###   ########.fr       */
+/*   Updated: 2022/12/22 12:25:00 by mgomes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ static int	max_size(int sign)
 	else
 		return (0);
 }
- 
+
 int	ft_atoi(const char *str)
 {
 	long long	nb;
 	long		sign;
 	int			i;
 	int			cpt;
- 
+
 	cpt = 1;
 	nb = 0;
 	sign = 1;

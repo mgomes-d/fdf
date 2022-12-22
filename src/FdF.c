@@ -6,7 +6,7 @@
 /*   By: mgomes-d <mgomes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 13:21:31 by mgomes-d          #+#    #+#             */
-/*   Updated: 2022/12/21 14:30:23 by mgomes-d         ###   ########.fr       */
+/*   Updated: 2022/12/22 12:22:23 by mgomes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,30 +53,36 @@ static int	render(t_data *data)
 	return (0);
 }
 
+static int	ft_mlx_data(t_data *data, char **av)
+{
+	ft_init_def(data);
+	data->matrix = ft_matrix(open(av[1], O_RDONLY), data);
+	data->mlx_ptr = mlx_init();
+	if (data->mlx_ptr == NULL)
+		return (MLX_ERROR);
+	data->win_ptr = mlx_new_window(data->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT, \
+			"fdf");
+	if (data->win_ptr == NULL)
+	{
+		free(data->win_ptr);
+		return (MLX_ERROR);
+	}
+	return (0);
+}
+
 int	main(int ac, char **av)
 {
 	t_data	data;
 
 	if (ac != 2)
 		return (0);
-	ft_init_def(&data);
-	data.matrix = ft_matrix(open(av[1], O_RDONLY), &data);
-	data.mlx_ptr = mlx_init();
-	if (data.mlx_ptr == NULL)
-		return (MLX_ERROR);
-	data.win_ptr = mlx_new_window(data.mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT,
-								"fdf");
-	if (data.win_ptr == NULL)
-	{
-		free(data.win_ptr);
-		return (MLX_ERROR);
-	}
+	ft_mlx_data(&data, av);
 	data.img.mlx_img = mlx_new_image(data.mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
 	data.img.addr = mlx_get_data_addr(data.img.mlx_img, &data.img.bpp,
 			&data.img.line_len, &data.img.endian);
 	mlx_loop_hook(data.mlx_ptr, &render, &data);
-	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &data);
-	mlx_hook(data.win_ptr, DestroyNotify, LeaveWindowMask, &windown_quit, &data);
+	mlx_hook(data.win_ptr, KEYPRESS, (1L << 0), &handle_keypress, &data);
+	mlx_hook(data.win_ptr, DESTROYNOTIFY, (1L << 5), &windown_quit, &data);
 	mlx_loop(data.mlx_ptr);
 	mlx_destroy_image(data.mlx_ptr, data.img.mlx_img);
 	mlx_destroy_window(data.mlx_ptr, data.win_ptr);

@@ -5,46 +5,40 @@
 #                                                     +:+ +:+         +:+      #
 #    By: mgomes-d <mgomes-d@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/12/22 13:44:16 by mgomes-d          #+#    #+#              #
-#    Updated: 2022/12/22 14:06:58 by mgomes-d         ###   ########.fr        #
+#    Created: 2022/12/22 13:02:34 by mgomes-d          #+#    #+#              #
+#    Updated: 2022/12/22 13:42:55 by mgomes-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = fdf
-CC = gcc
-CFLAGS = -Wall -Werror -Wextra
+NAME	= libft.a
+CC		= gcc
+CFLAGS	= -Wall -Werror -Wextra
 AR		= ar
 ARFLAGS	= -rcs
 RM		= rm
 RMFLAGS	= -rf
 
-# LIBRARY ARCHIVE
-LIBFT = $(LIBFT_DIRECTORY)libft.a
-LIBFT_DIRECTORY = ./libft/
-LIBFT_HEADERS = $(LIBFT_DIRECTORY)includes/
-INCLUDES = -I$(HEADERS_DIRECTORY) -I$(LIBFT_HEADERS) -I$(MINILIBX_HEADERS)
-
-MINILIBX = $(MINILIBX_DIRECTORY)libmlx.a
-MINILIBX_DIRECTORY = ./mlx/
-MINILIBX_HEADERS = $(MINILIBX_DIRECTORY)
-
-LIBRARIES = -lmlx -lft -lm -L$(LIBFT_DIRECTORY) -L$(MINILIBX_DIRECTORY) \
-			-framework OpenGL -framework AppKit
-
 # HEADERS
-HEADERS_LIST = FdF.h\
-			keycodes.h
+HEADERS_LIST = libft.h \
+			get_next_line.h
 HEADERS_DIRECTORY = ./includes/
 HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
+INCLUDES = -I$(HEADERS_DIRECTORY)
 
 # SOURCES
-SOURCES_DIRECTORY = ./src/
-SOURCES_LIST = FdF.c \
-			drawmlx.c \
-			free.c \
-			linealgo.c \
-			mlx_utils.c \
-			read_map.c
+SOURCES_DIRECTORY = ./sources/
+SOURCES_LIST = ft_atoi.c \
+		 	ft_bzero.c \
+			ft_calloc.c \
+		   	ft_isalnum.c \
+			ft_isdigit.c \
+			ft_strlen.c \
+			ft_memcpy.c \
+			ft_split.c \
+			ft_strdup.c \
+			ft_strjoin.c \
+			get_next_line.c \
+			get_next_line_utils.c 
 SOURCES = $(addprefix $(SOURCES_DIRECTORY), $(SOURCES_LIST))
 
 # OBJECTS
@@ -63,8 +57,9 @@ CLR_RESET	= \033[0m
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(MINILIBX) $(OBJECTS_DIRECTORY) $(OBJECTS)
-	@$(CC) $(CFLAGS) $(LIBRARIES) $(INCLUDES) $(OBJECTS) -o $(NAME)
+$(NAME): $(OBJECTS_DIRECTORY) $(OBJECTS)
+	@$(AR) $(ARFLAGS) $(NAME) $(OBJECTS)
+	@ranlib $(NAME)
 	@echo "\n$(NAME): $(CLR_GREEN)objects were created$(CLR_RESET)"
 	@echo "$(NAME): $(CLR_GREEN)$(NAME) was created$(CLR_RESET)"
 
@@ -76,26 +71,12 @@ $(OBJECTS_DIRECTORY)%.o : $(SOURCES_DIRECTORY)%.c $(HEADERS)
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 	@echo "$(CLR_GREEN).$(CLR_RESET)\c"
 
-$(LIBFT):
-	@echo "$(NAME): $(CLR_YELLOW)Creating $(LIBFT)...$(CLR_RESET)"
-	@$(MAKE) -sC $(LIBFT_DIRECTORY)
-
-$(MINILIBX):
-	@echo "$(NAME): $(CLR_YELLOW)Creating $(MINILIBX)...$(CLR_RESET)"
-	@$(MAKE) -sC $(MINILIBX_DIRECTORY)
-
 clean:
-	@$(MAKE) -sC $(LIBFT_DIRECTORY) clean
-	@$(MAKE) -sC $(MINILIBX_DIRECTORY) clean
 	@$(RM) $(RMFLAGS) $(OBJECTS_DIRECTORY)
 	@echo "$(NAME): $(CLR_RED)$(OBJECTS_DIRECTORY) was deleted$(CLR_RESET)"
 	@echo "$(NAME): $(CLR_RED)objects were deleted$(CLR_RESET)"
 
 fclean: clean
-	@$(RM) $(RMFLAGS) $(LIBFT)
-	@echo "$(NAME): $(CLR_RED)$(LIBFT) was deleted$(CLR_RESET)"
-	@$(RM) $(RMFLAGS) $(MINILIBX)
-	@echo "$(NAME): $(CLR_RED)$(MINILIBX) was deleted$(CLR_RESET)"
 	@$(RM) $(RMFLAGS) $(NAME)
 	@echo "$(NAME): $(CLR_RED)$(NAME) was deleted$(CLR_RESET)"
 
