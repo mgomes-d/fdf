@@ -6,7 +6,7 @@
 /*   By: mgomes-d <mgomes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 13:21:31 by mgomes-d          #+#    #+#             */
-/*   Updated: 2022/12/22 12:22:23 by mgomes-d         ###   ########.fr       */
+/*   Updated: 2023/08/11 11:30:48 by mgomes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ static int	render(t_data *data)
 static int	ft_mlx_data(t_data *data, char **av)
 {
 	ft_init_def(data);
+	(void)av;
 	data->matrix = ft_matrix(open(av[1], O_RDONLY), data);
 	data->mlx_ptr = mlx_init();
 	if (data->mlx_ptr == NULL)
